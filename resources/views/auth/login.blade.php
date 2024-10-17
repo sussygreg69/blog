@@ -1,53 +1,44 @@
 @extends('partials.layout')
 @section('content')
-    <div class="card bg-base-100 border-2px w-2/5 shadow-xl mx-auto my-auto">
+    <div class="card bg-base-100 w-2/5 shadow-xl mx-auto my-auto">
         <div class="card-body">
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
 
-        <label class="form-control w-full max-w">
+                <label class="form-control w-full">
                     <div class="label">
                         <span class="label-text">Email</span>
-                     </div>
-                    <input type="text" name="email" placeholder="Type here" value="{{ old('email') }}" class="input input-bordered w-full max-w"/>
+                    </div>
+                    <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" class="input input-bordered w-full @error('email') input-error @enderror" />
                     <div class="label">
                         @error('email')
-                        <span class="label-text-alt input-error">{{ $message  }}</span>
+                            <span class="label-text-alt text-error">{{ $message }}</span>
                         @enderror
                     </div>
-        <!-- Password -->
+                </label>
 
-        <label class="form-control w-full max-w">
-                  <div class="label">
-                      <span class="label-text">Password</span>
+                <label class="form-control w-full">
+                    <div class="label">
+                        <span class="label-text">Password</span>
+                    </div>
+                    <input type="password" name="password" placeholder="Password" class="input input-bordered w-full @error('password')input-error @enderror" />
+                    <div class="label">
+                        @error('password')
+                            <span class="label-text-alt text-error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </label>
+                <div class="form-control w-32">
+                    <label class="label cursor-pointer">
+                      <span class="label-text">Remember me</span>
+                      <input name="remember" type="checkbox" class="checkbox checkbox-primary" />
+                    </label>
                   </div>
-                  <input type="password" class="input input-bordered w-full max-w" name="password" required autocomplete="current-password" />
-                 <div class="label">
-                 @error('password')
-                    <span class="label-text-alt">{{ $message  }}</span>
-                 @enderror
-                 </div>
-             </label>
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="toggle toggle-success" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
+                <div class="flex justify-between">
+                    <a class="link link-primary" href="{{ route('password.request') }}">Forgot your password?</a>
+                    <input type="submit" class="btn btn-primary" value="Log in">
+                </div>
+            </form>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
     </div>
-    </div>    
-
+@endsection

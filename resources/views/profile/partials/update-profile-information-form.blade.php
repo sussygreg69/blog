@@ -17,16 +17,28 @@
         @csrf
         @method('patch')
 
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        <label>
+            <div>
+                <div class="label">
+                    <span class="label-text">Name</span>
+                </div>
+            <input id="name" name="name" type="text" class="mt-1 block w-full input input-bordered" :value="old('name', $user->name)" required autofocus autocomplete="name" @error('name') input-error @enderror />
+                <div class="label">
+                    @error('name')
+                        <span class="label-text-alt text-error">{{ $message }}</span>
+                    @enderror
+            </div>
+        </label>
+            <!--<x-input-error class="mt-2" :messages="$errors->get('name')" />-->
         </div>
-
+    
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <input id="email" name="email" type="email" class="mt-1 block w-full input input-bordered" :value="old('email', $user->email)" required autocomplete="username" @error('email') input-error @enderror />
+            @error('email')
+                            <span class="label-text-alt text-error">{{ $message }}</span>
+                        @enderror           
+            <!--<x-input-error class="mt-2" :messages="$errors->get('email')" />-->
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
@@ -46,7 +58,7 @@
                 </div>
             @endif
         </div>
-
+</label>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
