@@ -6,7 +6,7 @@
     <div class="grid-cols-4 grid gap-4">
         @foreach($posts as $post)
             <div>
-                <div class="card bg-base-100 shadow-xl">
+                <div class="card bg-base-100 shadow-xl min-h-full">
                     <figure>
                         <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                             alt="Shoes" />

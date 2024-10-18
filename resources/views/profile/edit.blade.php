@@ -1,6 +1,6 @@
 @extends('partials.layout')
 @section('content')
-    <div class="card w-3/5 mx-auto my-auto">
+    <div class="card w-2/4 mx-auto my-auto">
         <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
                 @csrf

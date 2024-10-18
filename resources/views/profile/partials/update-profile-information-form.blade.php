@@ -20,9 +20,9 @@
         <label>
             <div>
                 <div class="label">
-                    <span class="label-text">Name</span>
+                    <span class="label-text" :value="__('Name')">Name</span>
                 </div>
-            <input id="name" name="name" type="text" class="mt-1 block w-full input input-bordered" :value="old('name', $user->name)" required autofocus autocomplete="name" @error('name') input-error @enderror />
+            <input id="name" name="name" type="text" class="mt-1 block w-full input input-bordered @error('name') input-error @enderror"  required autofocus autocomplete="name" :value="old('name', $user->name)" />
                 <div class="label">
                     @error('name')
                         <span class="label-text-alt text-error">{{ $message }}</span>
@@ -33,8 +33,10 @@
         </div>
     
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <input id="email" name="email" type="email" class="mt-1 block w-full input input-bordered" :value="old('email', $user->email)" required autocomplete="username" @error('email') input-error @enderror />
+            <div class="label">
+            <span class="label-text" :value="__('Email')">Email</span>
+            </div>
+            <input id="email" name="email" type="email" class="mt-1 block w-full input input-bordered @error('email') input-error @enderror" required autocomplete="username":value="old('email', $user->email)"/>
             @error('email')
                             <span class="label-text-alt text-error">{{ $message }}</span>
                         @enderror           
@@ -42,7 +44,7 @@
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
-                    <p class="text-sm mt-2 text-gray-800">
+                    <p class="text-sm mt-2 text-error">
                         {{ __('Your email address is unverified.') }}
 
                         <button form="send-verification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -51,7 +53,7 @@
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
+                        <p class="mt-2 font-medium text-sm text-success">
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif
@@ -60,7 +62,7 @@
         </div>
 </label>
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <button class="btn btn-neutral">{{ __('Save') }}</button>
 
             @if (session('status') === 'profile-updated')
                 <p
