@@ -1,15 +1,14 @@
 <?php
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ */
 class PostFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
     /**
      * Define the model's default state.
      *
@@ -17,9 +16,21 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $created = fake()->dateTimeBetween('-10 years');
+        $updated = fake()->dateTimeBetween($created);
+        if(rand(0,9)){
+            $updated = $created;
+        }
+        $image = null;
+        if(rand(0,9)){
+           $image = 'https://picsum.photos/seed/'. fake()->uuid() .'/1280/720';
+        }
         return [
             'title' => fake()->sentence(),
             'body' => fake()->paragraphs(6, true),
+            'image' => $image,
+            'created_at' => $created,
+            'updated_at' => $updated,
         ];
     }
 }

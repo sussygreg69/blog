@@ -62,7 +62,7 @@
         </div>
 </label>
         <div class="flex items-center gap-4">
-            <button class="btn btn-neutral">{{ __('Save') }}</button>
+            <button class="btn btn-primary">{{ __('Save') }}</button>
 
             @if (session('status') === 'profile-updated')
                 <p
