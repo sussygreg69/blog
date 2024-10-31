@@ -6,15 +6,20 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Container\Attributes\Storage;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        if(request()->route('post') && request()->route('post')->user->id !== auth()->user()->id) {
+            abort(404);
+    }
+}
     public function index()
     {
-        $posts = Post::latest()->paginate();
+        $posts = auth()->user()->posts()->latest()->paginate();
+        dd($posts);
         return view('posts.index', compact('posts'));
     }
 
